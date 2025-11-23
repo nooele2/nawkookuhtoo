@@ -63,6 +63,7 @@ export class AppComponent {
     role: 'Frontend & Mobile Developer | UI/UX Designer',
     location: 'Thailand',
     bio: 'Passionate developer specializing in Flutter mobile development and UI/UX design. I create beautiful, intuitive user experiences that solve real-world problems.',
+    profileImage: 'profile.jpg',
     email: 'noellehtoo@gmail.com',
     phone: '+66618842063',
     whatsapp: '+66618842063',
@@ -128,7 +129,8 @@ export class AppComponent {
     }
   ];
 
-  experiences: Experience[] = [
+  // Work Experience (Paid positions)
+  workExperience: Experience[] = [
     {
       company: 'Teacher Su International School',
       role: 'Customer Service',
@@ -152,26 +154,46 @@ export class AppComponent {
         'Kept records of student attendance, progress, and activities to assess individual mastery',
         'Recognized students\' positive behavior using an established rewards system'
       ]
+    }
+  ];
+
+  // Volunteer Experience
+  volunteerExperience: Experience[] = [
+    {
+      company: 'Newlife Church Chiang Rai',
+      role: 'Production Team Member',
+      period: 'August 2024 - Present',
+      description: 'Volunteer media production team member responsible for live streaming services and camera operation, ensuring high-quality broadcast for online congregation.',
+      achievements: [
+        'Operate professional cameras during weekly church services',
+        'Manage live streaming and broadcasting to online platforms',
+        'Coordinate with production team for seamless service delivery',
+        'Setup and maintain audio-visual equipment for events',
+        'Contribute to creating engaging visual content for the community'
+      ]
     },
     {
       company: 'Teacher Su International School',
       role: 'Science and Technology Club Moderator',
       period: 'March 2021 - July 2021',
-      description: 'Facilitated the Science and Technology Club, helping students understand scientific concepts.',
+      description: 'Facilitated the Science and Technology Club, helping students understand scientific concepts through hands-on activities and demonstrations.',
       achievements: [
-        'Worked as a Science and Technology Club Moderator',
-        'Helped students understand concepts of Science using academic background in Science and Technology'
+        'Led weekly Science and Technology Club sessions',
+        'Developed engaging activities to explain complex scientific concepts',
+        'Mentored students in science projects and experiments',
+        'Fostered curiosity and critical thinking in STEM subjects'
       ]
     },
     {
       company: 'ELP Saturday Conversation Club',
       role: 'English Club Moderator',
       period: 'June 2020 - December 2021',
-      description: 'Volunteered as an English conversation club moderator, developing and implementing club programs.',
+      description: 'Volunteered as an English conversation club moderator, developing and implementing club programs to improve participants\' English communication skills.',
       achievements: [
-        'Responsible for the development and implementation of the club program',
+        'Developed and implemented engaging club curriculum',
         'Facilitated, reviewed, and guided discussions and debates',
-        'Managed interactions and encouraged participation among club members'
+        'Created a welcoming environment for language practice',
+        'Managed interactions and encouraged active participation among club members'
       ]
     }
   ];
