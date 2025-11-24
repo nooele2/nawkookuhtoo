@@ -61,16 +61,19 @@ export class AppComponent {
   profile = {
     name: 'Naw Hkoo Ku Htoo',
     role: 'Frontend & Mobile Developer | UI/UX Designer',
-    location: 'Thailand',
+    location: 'Chiang Rai, Thailand',
+    address: '232, Moo1, Thasut, Mueang, Chiang Rai, Thailand, 57100',
     bio: 'Passionate developer specializing in Flutter mobile development and UI/UX design. I create beautiful, intuitive user experiences that solve real-world problems.',
     profileImage: 'profile.jpg',
+    resumeUrl: 'resume.pdf',
     email: 'noellehtoo@gmail.com',
     phone: '+66618842063',
     whatsapp: '+66618842063',
     lineId: 'noele2',
     github: 'https://github.com/nooele2',
     linkedin: 'https://www.linkedin.com/in/noele2/',
-    twitter: ''
+    twitter: '',
+    website: 'https://nawkookukhtoo.vercel.app'
   };
 
   skills: Skill[] = [
@@ -212,6 +215,11 @@ export class AppComponent {
 
   get skillCategories(): string[] {
     return [...new Set(this.skills.map(skill => skill.category))];
+  }
+
+  // View Resume Function - Opens in new tab
+  downloadResume() {
+    window.open(this.profile.resumeUrl, '_blank');
   }
 
   // Email sending function
