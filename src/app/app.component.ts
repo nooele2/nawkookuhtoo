@@ -11,6 +11,7 @@ interface Project {
   image: string;
   github?: string;
   demo?: string;
+  wip?: boolean;
 }
 
 interface Skill {
@@ -110,7 +111,8 @@ export class AppComponent {
       description: 'An IoT-powered smart school bell web app integrated with Raspberry Pi. The web interface allows scheduling and managing automated bell rings, replacing manual bell systems with a programmable, remotely controllable solution. (Work in Progress)',
       technologies: ['Python', 'JavaScript', 'Raspberry Pi', 'CSS'],
       image: 'https://images.unsplash.com/photo-1562774053-701939374585?w=800&h=600&fit=crop',
-      github: 'https://github.com/nooele2/bell-webapp'
+      github: 'https://github.com/nooele2/bell-webapp',
+      wip: true
     },
     {
       title: 'NexStay Hotel Booking',
@@ -165,6 +167,18 @@ export class AppComponent {
         'Developing and maintaining a Raspberry Pi-powered school bell web application',
         'Designing and building the web interface for remote bell schedule management',
         'Troubleshooting hardware and software issues to ensure smooth daily operations'
+      ]
+    },
+    {
+      company: 'Vetraeus',
+      role: 'UI/UX Designer (Independent Contract)',
+      period: '2024 · 2 months',
+      description: 'Project-based independent contract delivering UI/UX design work for Ventreus, contributing to product design and user experience improvements.',
+      achievements: [
+        'Designed user interfaces as part of a short-term project-based contract',
+        'Collaborated remotely to deliver polished UI/UX design assets',
+        'Produced wireframes, mockups, and prototypes aligned with product goals',
+        'Contributed design solutions within a fast-paced, deadline-driven environment'
       ]
     },
     {
