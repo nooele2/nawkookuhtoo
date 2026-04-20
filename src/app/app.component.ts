@@ -160,7 +160,7 @@ export class AppComponent {
     {
       company: 'Chiang Rai Christian International School',
       role: 'IT Support & Web Developer Intern',
-      period: '2025 - Present',
+      period: 'January 2026 - Present',
       description: 'Internship focused on IT support and developing a smart school bell web application integrated with Raspberry Pi to automate and manage the school bell schedule.',
       achievements: [
         'Providing technical IT support to staff and students across the school',
@@ -172,7 +172,7 @@ export class AppComponent {
     {
       company: 'Vetraeus',
       role: 'UI/UX Designer (Independent Contract)',
-      period: '2024 · 2 months',
+      period: 'February 2026 - March 2026',
       description: 'Project-based independent contract delivering UI/UX design work for Ventreus, contributing to product design and user experience improvements.',
       achievements: [
         'Designed user interfaces as part of a short-term project-based contract',
