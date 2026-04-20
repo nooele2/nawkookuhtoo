@@ -61,7 +61,7 @@ export class AppComponent {
 
   profile = {
     name: 'Naw Hkoo Ku Htoo',
-    role: 'Frontend & Mobile Developer | UI/UX Designer',
+    role: 'Digital Product Designer & Frontend Developer',
     location: 'Chiang Rai, Thailand',
     address: '232, Moo1, Thasut, Mueang, Chiang Rai, Thailand, 57100',
     bio: 'Passionate developer specializing in Flutter mobile development and UI/UX design. I create beautiful, intuitive user experiences that solve real-world problems.',
@@ -88,7 +88,11 @@ export class AppComponent {
     { name: 'Tailwind CSS', level: 85, category: 'Frontend' },
     { name: 'Figma', level: 85, category: 'Tools' },
     { name: 'Git', level: 85, category: 'Tools' },
-    { name: 'Firebase', level: 75, category: 'Tools' }
+    { name: 'Firebase', level: 75, category: 'Tools' },
+    { name: 'Adobe Photoshop', level: 80, category: 'Content Creation' },
+    { name: 'Adobe Premiere Pro', level: 78, category: 'Content Creation' },
+    { name: 'Canva', level: 90, category: 'Content Creation' },
+    { name: 'CapCut', level: 85, category: 'Content Creation' }
   ];
 
   projects: Project[] = [
@@ -160,7 +164,7 @@ export class AppComponent {
     {
       company: 'Chiang Rai Christian International School',
       role: 'IT Support & Web Developer Intern',
-      period: 'January 2026 - Present',
+      period: '2025 - Present',
       description: 'Internship focused on IT support and developing a smart school bell web application integrated with Raspberry Pi to automate and manage the school bell schedule.',
       achievements: [
         'Providing technical IT support to staff and students across the school',
@@ -172,8 +176,8 @@ export class AppComponent {
     {
       company: 'Vetraeus',
       role: 'UI/UX Designer (Independent Contract)',
-      period: 'February 2026 - March 2026',
-      description: 'Project-based independent contract delivering UI/UX design work for Ventreus, contributing to product design and user experience improvements.',
+      period: '2024 · 2 months',
+      description: 'Project-based independent contract delivering UI/UX design work for Vetraeus, contributing to product design and user experience improvements.',
       achievements: [
         'Designed user interfaces as part of a short-term project-based contract',
         'Collaborated remotely to deliver polished UI/UX design assets',
@@ -209,6 +213,17 @@ export class AppComponent {
 
   // Volunteer Experience
   volunteerExperience: Experience[] = [
+    {
+      company: 'MFU Myanmar Christian Community (MFU MCC)',
+      role: 'Social Media Manager',
+      period: 'September 2025 - Present',
+      description: 'Volunteer social media manager for a student-led Christian community at Mae Fah Luang University, focused on faith, fellowship, and support among Myanmar students.',
+      achievements: [
+        'Manage and create content for the official Facebook page of the community',
+        'Plan and publish posts covering faith, fellowship, events, and community updates',
+        'Grew online presence and engagement among Myanmar students and the wider university community'
+      ]
+    },
     {
       company: 'Newlife Church Chiang Rai',
       role: 'Production Team Member',
