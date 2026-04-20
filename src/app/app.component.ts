@@ -92,6 +92,27 @@ export class AppComponent {
 
   projects: Project[] = [
     {
+      title: 'Qulture PWA',
+      description: 'A Progressive Web App designed for the Qulture platform, delivering a seamless cross-device experience with mobile-first UI, intuitive navigation, and polished interaction patterns.',
+      technologies: ['Figma', 'UI/UX Design', 'PWA Design'],
+      image: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&h=600&fit=crop',
+      demo: 'https://www.figma.com/design/N0KjAy7IYkcSSlGo51gtbv/Qulture-PWA?node-id=0-1&t=1UUo7iPzqvFO7Rib-1'
+    },
+    {
+      title: 'Qulture Dashboard',
+      description: 'A comprehensive admin dashboard design for the Qulture platform, featuring data visualization, analytics panels, and clean layout systems built for clarity and efficient workflow.',
+      technologies: ['Figma', 'UI/UX Design', 'Dashboard Design'],
+      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop',
+      demo: 'https://www.figma.com/design/1RfjfjEQaPJrdHzIfbdWbZ/Qulture-Dashboard?node-id=0-1&t=KNvF4EWPRTSs79B1-1'
+    },
+    {
+      title: 'School Bell System',
+      description: 'An IoT-powered smart school bell web app integrated with Raspberry Pi. The web interface allows scheduling and managing automated bell rings, replacing manual bell systems with a programmable, remotely controllable solution. (Work in Progress)',
+      technologies: ['Python', 'JavaScript', 'Raspberry Pi', 'CSS'],
+      image: 'https://images.unsplash.com/photo-1562774053-701939374585?w=800&h=600&fit=crop',
+      github: 'https://github.com/nooele2/bell-webapp'
+    },
+    {
       title: 'NexStay Hotel Booking',
       description: 'A modern hotel booking mobile application with an intuitive interface, featuring seamless reservation flow, property browsing, and user-friendly booking management.',
       technologies: ['Figma', 'UI/UX Design', 'Mobile Design'],
@@ -134,6 +155,18 @@ export class AppComponent {
 
   // Work Experience (Paid positions)
   workExperience: Experience[] = [
+    {
+      company: 'Chiang Rai Christian International School',
+      role: 'IT Support & Web Developer Intern',
+      period: '2025 - Present',
+      description: 'Internship focused on IT support and developing a smart school bell web application integrated with Raspberry Pi to automate and manage the school bell schedule.',
+      achievements: [
+        'Providing technical IT support to staff and students across the school',
+        'Developing and maintaining a Raspberry Pi-powered school bell web application',
+        'Designing and building the web interface for remote bell schedule management',
+        'Troubleshooting hardware and software issues to ensure smooth daily operations'
+      ]
+    },
     {
       company: 'Teacher Su International School',
       role: 'Customer Service',
