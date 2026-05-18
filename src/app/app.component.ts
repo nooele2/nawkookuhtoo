@@ -107,7 +107,7 @@ export class AppComponent {
       title: 'School Bell System',
       description: 'IoT-powered smart bell web app built with React & Python, integrated with Raspberry Pi hardware. Deployed in a live school environment — features programmable schedule management via a browser UI with full CRUD and REST API communication.',
       technologies: ['React', 'Python', 'Raspberry Pi', 'REST API'],
-      image: 'public/3.png',
+      image: '3.png',
       github: 'https://github.com/nooele2/bell-webapp',
       wip: true
     },
