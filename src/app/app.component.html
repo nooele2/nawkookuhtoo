@@ -1,493 +1,1121 @@
-<!-- Navigation -->
-<nav class="fixed top-0 w-full bg-gray-900/95 backdrop-blur-md z-50 border-b border-gray-800">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center h-16">
-      <div class="text-xl font-bold bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent">
-        Naw Hkoo Ku Htoo
-      </div>
-      <div class="hidden md:flex space-x-8">
-        <button (click)="scrollToSection('home')"
-                [class.text-teal-400]="activeSection === 'home'"
-                class="text-gray-300 hover:text-teal-400 transition-colors">Home</button>
-        <button (click)="scrollToSection('about')"
-                [class.text-teal-400]="activeSection === 'about'"
-                class="text-gray-300 hover:text-teal-400 transition-colors">About</button>
-        <button (click)="scrollToSection('skills')"
-                [class.text-teal-400]="activeSection === 'skills'"
-                class="text-gray-300 hover:text-teal-400 transition-colors">Skills</button>
-        <button (click)="scrollToSection('projects')"
-                [class.text-teal-400]="activeSection === 'projects'"
-                class="text-gray-300 hover:text-teal-400 transition-colors">Projects</button>
-        <button (click)="scrollToSection('experience')"
-                [class.text-teal-400]="activeSection === 'experience'"
-                class="text-gray-300 hover:text-teal-400 transition-colors">Experience</button>
-        <button (click)="scrollToSection('contact')"
-                [class.text-teal-400]="activeSection === 'contact'"
-                class="text-gray-300 hover:text-teal-400 transition-colors">Contact</button>
-      </div>
-    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Naw Hkoo Ku Htoo — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1a1a;
+    --ink-mid: #555;
+    --ink-soft: #888;
+    --ink-faint: #bbb;
+    --surface: #ffffff;
+    --surface-2: #f8f7f5;
+    --surface-3: #f2f0ec;
+    --accent: #1a6b4a;
+    --accent-light: #e8f4ef;
+    --accent-mid: #2d8f62;
+    --border: rgba(0,0,0,0.08);
+    --border-strong: rgba(0,0,0,0.15);
+    --sans: 'DM Sans', sans-serif;
+    --serif: 'DM Serif Display', serif;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--surface);
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    height: 60px;
+    display: flex; align-items: center;
+  }
+  .nav-inner {
+    max-width: 1100px; margin: 0 auto; padding: 0 2rem;
+    display: flex; justify-content: space-between; align-items: center;
+    width: 100%;
+  }
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* SECTIONS */
+  section { padding: 6rem 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+  .section-subtitle {
+    font-size: 1.05rem;
+    color: var(--ink-mid);
+    max-width: 560px;
+    line-height: 1.75;
+  }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    background: var(--surface);
+    display: flex; align-items: center;
+    padding-top: 60px;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.8rem; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--accent);
+    background: var(--accent-light);
+    padding: 6px 14px; border-radius: 100px;
+    margin-bottom: 1.5rem;
+  }
+  .hero-eyebrow-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  .hero-name {
+    font-family: var(--serif);
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+  .hero-name em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .hero-role {
+    font-size: 1.1rem;
+    color: var(--ink-mid);
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+  }
+  .hero-bio {
+    font-size: 1rem;
+    color: var(--ink-soft);
+    line-height: 1.8;
+    max-width: 440px;
+    margin-bottom: 2.5rem;
+  }
+  .hero-tags {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 2.5rem;
+  }
+  .tag {
+    font-size: 0.78rem; font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 100px;
+    border: 1px solid var(--border-strong);
+    color: var(--ink-mid);
+    background: var(--surface);
+    white-space: nowrap;
+  }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 24px;
+    background: var(--ink);
+    color: #fff;
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem; font-weight: 500;
+    text-decoration: none;
+    border: none; cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 24px;
+    background: transparent;
+    color: var(--ink);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem; font-weight: 500;
+    text-decoration: none;
+    border: 1px solid var(--border-strong); cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, transform 0.15s;
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+  .hero-image-wrap {
+    position: relative;
+  }
+  .hero-image-frame {
+    width: 100%; aspect-ratio: 4/5;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--surface-3);
+    border: 1px solid var(--border);
+  }
+  .hero-image-frame img {
+    width: 100%; height: 100%; object-fit: cover;
+    display: block;
+  }
+  .hero-image-badge {
+    position: absolute; bottom: -16px; left: -16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+  .badge-label { font-size: 0.7rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.08em; }
+  .badge-value { font-size: 1rem; font-weight: 600; color: var(--ink); }
+  .hero-image-badge2 {
+    position: absolute; top: -16px; right: -16px;
+    background: var(--accent);
+    border-radius: var(--radius);
+    padding: 14px 18px;
+  }
+  .badge2-label { font-size: 0.7rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.08em; }
+  .badge2-value { font-size: 0.9rem; font-weight: 600; color: #fff; }
+
+  /* ABOUT */
+  #about { background: var(--surface-2); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+  .about-left {}
+  .about-story {
+    font-size: 1rem;
+    color: var(--ink-mid);
+    line-height: 1.85;
+    margin-bottom: 1.5rem;
+  }
+  .about-story strong { color: var(--ink); font-weight: 500; }
+  .about-story em { font-style: italic; color: var(--accent); }
+
+  .about-quote {
+    border-left: 3px solid var(--accent);
+    padding-left: 1.25rem;
+    margin: 2rem 0;
+    border-radius: 0;
+  }
+  .about-quote p {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    color: var(--ink);
+    line-height: 1.5;
+    font-style: italic;
+  }
+
+  .about-vm-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+  .vm-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+  }
+  .vm-card-icon {
+    width: 36px; height: 36px;
+    background: var(--accent-light);
+    border-radius: var(--radius-sm);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 0.75rem;
+  }
+  .vm-card-icon svg { width: 18px; height: 18px; stroke: var(--accent); fill: none; stroke-width: 1.8; }
+  .vm-card h4 {
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  .vm-card p { font-size: 0.9rem; color: var(--ink-mid); line-height: 1.6; }
+
+  .about-langs {
+    display: flex; gap: 0.75rem; margin-top: 2rem; flex-wrap: wrap;
+  }
+  .lang-pill {
+    padding: 6px 16px;
+    border-radius: 100px;
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    font-size: 0.82rem;
+  }
+  .lang-pill span { color: var(--ink-soft); font-size: 0.75rem; margin-left: 4px; }
+
+  .about-right {}
+  .fun-facts {
+    display: grid; gap: 1rem; margin-top: 0;
+  }
+  .fun-fact {
+    display: flex; align-items: flex-start; gap: 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    transition: border-color 0.2s;
+  }
+  .fun-fact:hover { border-color: var(--accent); }
+  .fun-fact-num {
+    font-family: var(--serif);
+    font-size: 2rem;
+    color: var(--accent);
+    line-height: 1;
+    min-width: 2.5rem;
+    font-style: italic;
+  }
+  .fun-fact-text h4 { font-size: 0.9rem; font-weight: 600; color: var(--ink); margin-bottom: 0.25rem; }
+  .fun-fact-text p { font-size: 0.85rem; color: var(--ink-soft); line-height: 1.5; }
+
+  .edu-block {
+    margin-top: 2rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .edu-icon {
+    width: 44px; height: 44px; flex-shrink: 0;
+    background: var(--accent-light);
+    border-radius: var(--radius-sm);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .edu-icon svg { width: 22px; height: 22px; stroke: var(--accent); fill: none; stroke-width: 1.8; }
+  .edu-degree { font-size: 0.9rem; font-weight: 600; color: var(--ink); }
+  .edu-school { font-size: 0.82rem; color: var(--ink-soft); }
+
+  /* SKILLS */
+  #skills { background: var(--surface); }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .skill-category {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+  }
+  .skill-category h3 {
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 1.25rem;
+  }
+  .skill-item { margin-bottom: 1rem; }
+  .skill-item:last-child { margin-bottom: 0; }
+  .skill-row {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 5px;
+  }
+  .skill-name { font-size: 0.88rem; color: var(--ink); font-weight: 400; }
+  .skill-pct { font-size: 0.78rem; color: var(--ink-soft); }
+  .skill-learning { font-size: 0.7rem; color: #b07d2a; font-weight: 500; margin-right: 4px; }
+  .skill-bar {
+    height: 3px; background: var(--surface-3);
+    border-radius: 100px; overflow: hidden;
+  }
+  .skill-fill {
+    height: 100%; background: var(--accent);
+    border-radius: 100px;
+    transition: width 0.6s ease;
+  }
+
+  /* PROJECTS */
+  #projects { background: var(--surface-2); }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  }
+  .project-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: 0 12px 40px rgba(26,107,74,0.08);
+  }
+  .project-img {
+    width: 100%; height: 200px; object-fit: cover; display: block;
+    background: var(--surface-3);
+  }
+  .project-img-wrap { position: relative; }
+  .wip-badge {
+    position: absolute; top: 12px; left: 12px;
+    background: #f59e0b;
+    color: #fff; font-size: 0.7rem; font-weight: 600;
+    padding: 4px 10px; border-radius: 100px;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .wip-dot { width: 5px; height: 5px; border-radius: 50%; background: #fff; animation: pulse 1.5s infinite; }
+  .project-body { padding: 1.25rem 1.5rem 1.5rem; }
+  .project-title { font-size: 1rem; font-weight: 600; color: var(--ink); margin-bottom: 0.5rem; }
+  .project-desc { font-size: 0.85rem; color: var(--ink-soft); line-height: 1.7; margin-bottom: 1rem; }
+  .project-techs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1rem; }
+  .tech-pill {
+    font-size: 0.72rem; font-weight: 500;
+    padding: 3px 10px; border-radius: 100px;
+    background: var(--accent-light);
+    color: var(--accent);
+    border: 1px solid rgba(26,107,74,0.15);
+  }
+  .project-links { display: flex; gap: 1.25rem; }
+  .project-link {
+    font-size: 0.82rem; color: var(--ink-soft);
+    text-decoration: none; display: flex; align-items: center; gap: 5px;
+    transition: color 0.2s;
+  }
+  .project-link:hover { color: var(--accent); }
+  .project-link svg { width: 14px; height: 14px; }
+
+  /* EXPERIENCE */
+  #experience { background: var(--surface); }
+  .timeline { margin-top: 3rem; position: relative; }
+  .timeline::before {
+    content: '';
+    position: absolute; left: 20px; top: 0; bottom: 0; width: 1px;
+    background: var(--border-strong);
+  }
+  .timeline-item {
+    display: flex; gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  .timeline-dot {
+    flex-shrink: 0;
+    width: 41px; height: 41px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; z-index: 1;
+  }
+  .timeline-dot svg { width: 18px; height: 18px; stroke: var(--accent); fill: none; stroke-width: 1.8; }
+  .timeline-dot.active { background: var(--accent-light); border-color: var(--accent); }
+  .timeline-card {
+    flex: 1;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-top: 0;
+  }
+  .timeline-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 1rem; margin-bottom: 0.5rem; flex-wrap: wrap;
+  }
+  .timeline-role { font-size: 1rem; font-weight: 600; color: var(--ink); }
+  .timeline-company { font-size: 0.88rem; color: var(--accent); font-weight: 500; }
+  .timeline-period {
+    font-size: 0.78rem; color: var(--ink-soft);
+    background: var(--surface-3); border: 1px solid var(--border);
+    padding: 4px 12px; border-radius: 100px; white-space: nowrap;
+  }
+  .timeline-desc { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.7; margin: 0.75rem 0; }
+  .timeline-achievements { list-style: none; display: grid; gap: 0.4rem; margin-top: 0.75rem; }
+  .timeline-achievements li {
+    display: flex; align-items: flex-start; gap: 8px;
+    font-size: 0.85rem; color: var(--ink-mid);
+  }
+  .timeline-achievements li::before {
+    content: '';
+    flex-shrink: 0;
+    width: 5px; height: 5px;
+    border-radius: 50%; background: var(--accent);
+    margin-top: 9px;
+  }
+
+  /* VOLUNTEER */
+  #volunteer { background: var(--surface-2); }
+  .vol-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+    margin-top: 3rem;
+  }
+  .vol-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    transition: border-color 0.2s;
+  }
+  .vol-card:hover { border-color: var(--accent); }
+  .vol-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.25rem; }
+  .vol-role { font-size: 0.92rem; font-weight: 600; color: var(--ink); }
+  .vol-period { font-size: 0.72rem; color: var(--ink-faint); white-space: nowrap; }
+  .vol-company { font-size: 0.82rem; color: var(--accent); font-weight: 500; margin-bottom: 0.6rem; }
+  .vol-desc { font-size: 0.83rem; color: var(--ink-soft); line-height: 1.6; margin-bottom: 0.75rem; }
+  .vol-achievements { list-style: none; display: grid; gap: 0.3rem; }
+  .vol-achievements li { display: flex; align-items: flex-start; gap: 7px; font-size: 0.8rem; color: var(--ink-soft); }
+  .vol-achievements li::before { content:''; flex-shrink:0; width:4px;height:4px;border-radius:50%;background:var(--accent);margin-top:9px; }
+
+  /* CONTACT */
+  #contact { background: var(--surface); }
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: start;
+    margin-top: 3rem;
+  }
+  .contact-info { display: grid; gap: 1rem; }
+  .contact-item {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: border-color 0.2s;
+  }
+  .contact-item:hover { border-color: var(--accent); }
+  .contact-icon {
+    width: 36px; height: 36px; flex-shrink: 0;
+    background: var(--accent-light);
+    border-radius: var(--radius-sm);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .contact-icon svg { width: 18px; height: 18px; stroke: var(--accent); fill: none; stroke-width: 1.8; }
+  .contact-label { font-size: 0.72rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.06em; }
+  .contact-value { font-size: 0.9rem; color: var(--ink); font-weight: 500; }
+
+  .contact-form { display: grid; gap: 1rem; }
+  .form-input {
+    width: 100%; padding: 12px 16px;
+    background: var(--surface-2);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    font-family: var(--sans); font-size: 0.9rem;
+    color: var(--ink); outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-input::placeholder { color: var(--ink-faint); }
+  .form-input:focus { border-color: var(--accent); }
+  textarea.form-input { resize: vertical; min-height: 120px; }
+  .form-submit {
+    width: 100%; padding: 13px;
+    background: var(--ink); color: #fff;
+    border: none; border-radius: var(--radius-sm);
+    font-family: var(--sans); font-size: 0.9rem; font-weight: 500;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .form-submit:hover { background: var(--accent); }
+
+  /* FOOTER */
+  footer {
+    background: var(--surface-2);
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    text-align: center;
+  }
+  footer p { font-size: 0.82rem; color: var(--ink-soft); }
+
+  /* DIVIDER */
+  .divider {
+    width: 40px; height: 2px;
+    background: var(--accent);
+    margin: 1rem 0 2rem;
+    border-radius: 1px;
+  }
+
+  @media (max-width: 768px) {
+    .hero-grid, .about-grid, .contact-grid { grid-template-columns: 1fr; }
+    .hero-image-wrap { display: none; }
+    .about-vm-grid { grid-template-columns: 1fr; }
+    .timeline::before { display: none; }
+    .timeline-item { flex-direction: column; gap: 0.75rem; }
+    .timeline-dot { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">Naw Hkoo Ku Htoo</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
   </div>
 </nav>
 
-<!-- Hero Section -->
-<section id="home" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 pt-16">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-    <div class="animate-fade-in">
-      <!-- Availability badge -->
-      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-teal-500/40 bg-teal-500/10 text-teal-400 text-sm font-medium mb-8">
-        <span class="w-2 h-2 rounded-full bg-teal-400 animate-pulse"></span>
-        Open to new opportunities — remote-ready
-      </div>
-
-      <h1 class="text-5xl md:text-7xl font-bold mb-6">
-        <span class="text-gray-300">Hi, I'm </span>
-        <span class="bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent">{{ profile.name }}</span>
-      </h1>
-      <p class="text-2xl md:text-3xl text-gray-300 mb-4">{{ profile.role }}</p>
-      <p class="text-lg text-gray-400 mb-10 max-w-3xl mx-auto leading-relaxed">
-        I build web apps, design intuitive interfaces, and work with real hardware —
-        from React frontends to Raspberry Pi IoT systems. Based in Chiang Rai, Thailand.
-      </p>
-
-      <!-- Tech stack pills -->
-      <div class="flex flex-wrap gap-2 justify-center mb-10">
-        @for (tag of ['React', 'Angular', 'TypeScript', 'Python', 'Flutter', 'Figma', 'Raspberry Pi']; track tag) {
-          <span class="px-3 py-1 text-xs font-medium rounded-full bg-gray-800 text-gray-400 border border-gray-700">{{ tag }}</span>
-        }
-      </div>
-
-      <div class="flex gap-4 justify-center flex-wrap">
-        <button (click)="scrollToSection('projects')"
-                class="px-8 py-3 bg-gradient-to-r from-blue-500 to-teal-500 text-white rounded-full font-semibold hover:shadow-lg hover:shadow-teal-500/50 transform hover:-translate-y-1 transition-all">
-          View My Work
-        </button>
-        <button (click)="downloadResume()"
-                class="px-8 py-3 border-2 border-teal-400 text-teal-400 rounded-full font-semibold hover:bg-teal-500/10 transition-all flex items-center gap-2">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-          </svg>
-          View Resume
-        </button>
-        <button (click)="scrollToSection('contact')"
-                class="px-8 py-3 border border-gray-600 text-gray-300 rounded-full font-semibold hover:border-gray-400 transition-all">
-          Contact Me
-        </button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- About Section -->
-<section id="about" class="py-20 bg-gray-800">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h2 class="text-4xl font-bold text-center mb-12">
-      <span class="bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent">About Me</span>
-    </h2>
-    <div class="grid md:grid-cols-2 gap-12 items-center">
-      <div class="space-y-6">
-        <p class="text-lg text-gray-300 leading-relaxed">
-          I'm a frontend-focused developer and UI/UX designer based in <span class="text-teal-400 font-medium">Chiang Rai, Thailand</span>,
-          currently completing my Bachelor's in Software Engineering at Mae Fah Luang University.
-        </p>
-        <p class="text-lg text-gray-300 leading-relaxed">
-          My internship at Chiang Rai International Christian School gave me real-world experience across the full stack —
-          building a <span class="text-teal-400 font-medium">React & Python IoT school bell system</span> with Raspberry Pi,
-          redesigning the school website, and managing campus network infrastructure.
-        </p>
-        <p class="text-lg text-gray-300 leading-relaxed">
-          I'm actively expanding into <span class="text-teal-400 font-medium">React, Next.js, NestJS, and PostgreSQL</span>,
-          with strong foundations in TypeScript, REST APIs, and Git. Remote-ready with fluent English.
-        </p>
-
-        <!-- Quick stats -->
-        <div class="grid grid-cols-3 gap-4 pt-4">
-          <div class="text-center p-4 bg-gray-900 rounded-xl border border-gray-700">
-            <p class="text-2xl font-bold text-teal-400">5+</p>
-            <p class="text-xs text-gray-400 mt-1">Years experience</p>
-          </div>
-          <div class="text-center p-4 bg-gray-900 rounded-xl border border-gray-700">
-            <p class="text-2xl font-bold text-teal-400">8+</p>
-            <p class="text-xs text-gray-400 mt-1">Projects built</p>
-          </div>
-          <div class="text-center p-4 bg-gray-900 rounded-xl border border-gray-700">
-            <p class="text-2xl font-bold text-teal-400">3</p>
-            <p class="text-xs text-gray-400 mt-1">Languages spoken</p>
-          </div>
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-eyebrow">
+          <span class="hero-eyebrow-dot"></span>
+          Available for opportunities
         </div>
-
-        <!-- Social Links & Resume -->
-        <div class="flex items-center gap-4 pt-2">
-          <button (click)="downloadResume()"
-                  class="px-6 py-3 bg-gradient-to-r from-blue-500 to-teal-500 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-teal-500/50 transform hover:-translate-y-1 transition-all flex items-center gap-2">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-            </svg>
+        <h1 class="hero-name">
+          Frontend Developer<br /><em>&amp; UI/UX Designer</em>
+        </h1>
+        <p class="hero-role">Naw Hkoo Ku Htoo &nbsp;·&nbsp; Chiang Rai, Thailand</p>
+        <p class="hero-bio">
+          I build web apps, design intuitive interfaces, and work with real hardware —
+          from React frontends to Raspberry Pi IoT systems. Remote-ready with strong Git, TypeScript, and REST API fundamentals.
+        </p>
+        <div class="hero-tags">
+          <span class="tag">React</span>
+          <span class="tag">Angular</span>
+          <span class="tag">TypeScript</span>
+          <span class="tag">Python</span>
+          <span class="tag">Flutter</span>
+          <span class="tag">Figma</span>
+          <span class="tag">Raspberry Pi</span>
+        </div>
+        <div class="hero-cta">
+          <a href="#projects" class="btn-primary">
+            View My Work
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="resume.pdf" target="_blank" class="btn-secondary">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
             View Resume
-          </button>
-
-          <a [href]="profile.github" target="_blank"
-             class="w-12 h-12 flex items-center justify-center rounded-full bg-gray-700 hover:bg-gradient-to-r hover:from-blue-500 hover:to-teal-500 text-gray-300 hover:text-white transition-all">
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
           </a>
+        </div>
+      </div>
+      <div class="hero-image-wrap">
+        <div class="hero-image-frame">
+          <img src="profile.jpg" alt="Naw Hkoo Ku Htoo" onerror="this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600&h=750&fit=crop&face'" />
+        </div>
+        <div class="hero-image-badge">
+          <div class="badge-label">Based in</div>
+          <div class="badge-value">Chiang Rai, Thailand</div>
+        </div>
+        <div class="hero-image-badge2">
+          <div class="badge2-label">Status</div>
+          <div class="badge2-value">Open to work</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-          <a [href]="profile.linkedin" target="_blank"
-             class="w-12 h-12 flex items-center justify-center rounded-full bg-gray-700 hover:bg-gradient-to-r hover:from-blue-500 hover:to-teal-500 text-gray-300 hover:text-white transition-all">
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-          </a>
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <!-- LEFT: STORY -->
+      <div class="about-left">
+        <p class="section-label">About Me</p>
+        <h2 class="section-title">Builder by necessity,<br /><em>developer by choice.</em></h2>
+        <div class="divider"></div>
 
-          @if (profile.twitter) {
-            <a [href]="profile.twitter" target="_blank"
-               class="w-12 h-12 flex items-center justify-center rounded-full bg-gray-700 hover:bg-gradient-to-r hover:from-blue-500 hover:to-teal-500 text-gray-300 hover:text-white transition-all">
-              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        <p class="about-story">
+          I'm originally from <strong>Myanmar</strong>. When the military coup in 2021 upended life as I knew it,
+          I had to leave — and I found myself starting over in <strong>Chiang Rai, Thailand</strong>.
+          That kind of reset forces you to figure out who you actually are.
+        </p>
+
+        <p class="about-story">
+          I started eliminating things I didn't enjoy until tech was what was left. And when I started
+          building — really building — something clicked. <em>It was interesting.</em> I kept going.
+          That's still why I do it.
+        </p>
+
+        <div class="about-quote">
+          <p>"I go where others don't. In life, in travel — and in the problems I choose to solve."</p>
+        </div>
+
+        <p class="about-story">
+          I'm an adventurous person by nature. I explore restricted areas, take risks, and do things most people
+          wouldn't. That same restlessness pushes me in tech — I'm not interested in building another todo app.
+          I want to build things that <strong>actually fix broken systems</strong> for real people in real places.
+          My internship showed me exactly what that looks like: replacing a clunky Google Sheets bell schedule
+          with a React &amp; Python IoT system wired to actual hardware — because a school needed it to just <em>work</em>.
+        </p>
+
+        <div class="about-vm-grid">
+          <div class="vm-card">
+            <div class="vm-card-icon">
+              <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+            </div>
+            <h4>Vision</h4>
+            <p>To build in Silicon Valley — and prove that where you start doesn't limit where you can go.</p>
+          </div>
+          <div class="vm-card">
+            <div class="vm-card-icon">
+              <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+            </div>
+            <h4>Mission</h4>
+            <p>Solve real problems for real people — the unglamorous, practical ones that make daily life actually work.</p>
+          </div>
+        </div>
+
+        <div class="about-langs">
+          <div class="lang-pill">English <span>Fluent</span></div>
+          <div class="lang-pill">Burmese <span>Native</span></div>
+          <div class="lang-pill">Thai <span>Pre-Intermediate</span></div>
+        </div>
+      </div>
+
+      <!-- RIGHT: FACTS + EDU -->
+      <div class="about-right">
+        <div class="fun-facts">
+          <div class="fun-fact">
+            <div class="fun-fact-num">01</div>
+            <div class="fun-fact-text">
+              <h4>Started from scratch in a new country</h4>
+              <p>Rebuilding life in Chiang Rai after the Myanmar coup taught me to be resourceful, adaptable, and to never wait for perfect conditions.</p>
+            </div>
+          </div>
+          <div class="fun-fact">
+            <div class="fun-fact-num">02</div>
+            <div class="fun-fact-text">
+              <h4>Built IoT in a live school environment</h4>
+              <p>My internship wasn't a sandbox project — I shipped a React &amp; Python bell system integrated with real Raspberry Pi hardware, used by staff every day.</p>
+            </div>
+          </div>
+          <div class="fun-fact">
+            <div class="fun-fact-num">03</div>
+            <div class="fun-fact-text">
+              <h4>Explorer in code and in life</h4>
+              <p>I visit restricted areas, explore places most people won't go, and take risks. That same energy drives how I approach new technologies and problems.</p>
+            </div>
+          </div>
+          <div class="fun-fact">
+            <div class="fun-fact-num">04</div>
+            <div class="fun-fact-text">
+              <h4>Silicon Valley is the goal</h4>
+              <p>Not for the prestige — but because that's where the hardest, most impactful problems get solved. I want to be in the room where that happens.</p>
+            </div>
+          </div>
+          <div class="fun-fact">
+            <div class="fun-fact-num">05</div>
+            <div class="fun-fact-text">
+              <h4>Community-first by heart</h4>
+              <p>From teaching to church production to social media managing — I give back. Tech without purpose is just code.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="edu-block">
+          <div class="edu-icon">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422A12.083 12.083 0 0121 12c0 4.556-4 8.25-9 8.25S3 16.556 3 12c0-.548.08-1.078.226-1.578L12 14z"/></svg>
+          </div>
+          <div>
+            <div class="edu-degree">B.Eng. Software Engineering</div>
+            <div class="edu-school">Mae Fah Luang University, Chiang Rai, Thailand</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <p class="section-label">Skills</p>
+    <h2 class="section-title">What I work with</h2>
+    <p class="section-subtitle">Actively expanding into React, Next.js, NestJS, and PostgreSQL — skills marked "learning" are in progress.</p>
+    <div class="skills-grid">
+
+      <div class="skill-category">
+        <h3>Frontend</h3>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">HTML / CSS / Tailwind</span><span class="skill-pct">90%</span></div><div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">JavaScript / TypeScript</span><span class="skill-pct">85%</span></div><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Angular</span><span class="skill-pct">80%</span></div><div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">React &amp; Next.js</span><span class="skill-pct"><span class="skill-learning">Learning</span>65%</span></div><div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div></div>
+      </div>
+
+      <div class="skill-category">
+        <h3>Backend &amp; Data</h3>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Python</span><span class="skill-pct">75%</span></div><div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">REST API Integration</span><span class="skill-pct">80%</span></div><div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Firebase</span><span class="skill-pct">75%</span></div><div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Node.js / NestJS</span><span class="skill-pct"><span class="skill-learning">Learning</span>55%</span></div><div class="skill-bar"><div class="skill-fill" style="width:55%"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">PostgreSQL</span><span class="skill-pct"><span class="skill-learning">Learning</span>45%</span></div><div class="skill-bar"><div class="skill-fill" style="width:45%"></div></div></div>
+      </div>
+
+      <div class="skill-category">
+        <h3>Mobile</h3>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Flutter</span><span class="skill-pct">85%</span></div><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Dart</span><span class="skill-pct">82%</span></div><div class="skill-bar"><div class="skill-fill" style="width:82%"></div></div></div>
+      </div>
+
+      <div class="skill-category">
+        <h3>Networking &amp; Systems</h3>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Raspberry Pi / IoT</span><span class="skill-pct">72%</span></div><div class="skill-bar"><div class="skill-fill" style="width:72%"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Switch &amp; Wi-Fi Config</span><span class="skill-pct">70%</span></div><div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">LAN / Server Admin</span><span class="skill-pct">68%</span></div><div class="skill-bar"><div class="skill-fill" style="width:68%"></div></div></div>
+      </div>
+
+      <div class="skill-category">
+        <h3>Design &amp; Tools</h3>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Figma / UI/UX Design</span><span class="skill-pct">88%</span></div><div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Git &amp; GitHub</span><span class="skill-pct">85%</span></div><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Adobe Photoshop</span><span class="skill-pct">80%</span></div><div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div></div>
+        <div class="skill-item"><div class="skill-row"><span class="skill-name">Canva / CapCut</span><span class="skill-pct">88%</span></div><div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <p class="section-label">Projects</p>
+    <h2 class="section-title">Things I've built</h2>
+    <p class="section-subtitle">From IoT hardware to mobile apps, dashboards to VS Code extensions — real work, real environments.</p>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-img-wrap">
+          <img class="project-img" src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=400&fit=crop" alt="School Bell System" />
+          <div class="wip-badge"><span class="wip-dot"></span>Work in Progress</div>
+        </div>
+        <div class="project-body">
+          <div class="project-title">School Bell System</div>
+          <div class="project-desc">React &amp; Python IoT bell app integrated with Raspberry Pi. Deployed live at CRICS — replaces Google Sheets with a full browser-based schedule manager via REST API.</div>
+          <div class="project-techs">
+            <span class="tech-pill">React</span><span class="tech-pill">Python</span><span class="tech-pill">Raspberry Pi</span><span class="tech-pill">REST API</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/nooele2/bell-webapp" target="_blank" class="project-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+              Code
             </a>
-          }
-        </div>
-
-        <!-- Languages -->
-        <div class="flex gap-4 pt-2">
-          @for (lang of [{ name: 'English', level: 'Fluent' }, { name: 'Burmese', level: 'Native' }, { name: 'Thai', level: 'Pre-Intermediate' }]; track lang.name) {
-            <div class="px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 text-center">
-              <p class="text-sm font-medium text-white">{{ lang.name }}</p>
-              <p class="text-xs text-teal-400">{{ lang.level }}</p>
-            </div>
-          }
+          </div>
         </div>
       </div>
 
-      <!-- Profile Image Card -->
-      <div class="relative">
-        <div class="w-full h-96 bg-gradient-to-br from-blue-500 to-teal-500 rounded-2xl shadow-2xl shadow-teal-500/50 p-1">
-          <div class="w-full h-full bg-gray-800 rounded-xl overflow-hidden">
-            <img
-              [src]="profile.profileImage"
-              [alt]="profile.name"
-              class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-            />
+      <div class="project-card">
+        <div class="project-img-wrap">
+          <img class="project-img" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=400&fit=crop" alt="Qulture Dashboard" />
+        </div>
+        <div class="project-body">
+          <div class="project-title">Qulture Dashboard</div>
+          <div class="project-desc">Admin dashboard design with data visualizations and analytics panels — clean layout system built for clarity and efficient workflow.</div>
+          <div class="project-techs">
+            <span class="tech-pill">Figma</span><span class="tech-pill">UI/UX Design</span><span class="tech-pill">Dashboard</span>
+          </div>
+          <div class="project-links">
+            <a href="https://www.figma.com/design/1RfjfjEQaPJrdHzIfbdWbZ/Qulture-Dashboard" target="_blank" class="project-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+              Live Demo
+            </a>
           </div>
         </div>
-        <div class="absolute -top-4 -right-4 w-24 h-24 bg-blue-500 rounded-full opacity-20 blur-2xl"></div>
-        <div class="absolute -bottom-4 -left-4 w-32 h-32 bg-teal-500 rounded-full opacity-20 blur-2xl"></div>
       </div>
-    </div>
-  </div>
-</section>
 
-<!-- Skills Section -->
-<section id="skills" class="py-20 bg-gray-900">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h2 class="text-4xl font-bold text-center mb-4">
-      <span class="bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent">Skills & Expertise</span>
-    </h2>
-    <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
-      Across frontend, backend, mobile, networking, and design — with active learning in React, Next.js, NestJS, and PostgreSQL.
-    </p>
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-      @for (category of skillCategories; track category) {
-        <div class="bg-gray-800 border border-gray-700 rounded-xl p-6 hover:border-teal-500 hover:shadow-xl hover:shadow-teal-500/20 transition-all">
-          <h3 class="text-xl font-bold mb-6 text-teal-400">{{ category }}</h3>
-          <div class="space-y-4">
-            @for (skill of getSkillsByCategory(category); track skill.name) {
-              <div>
-                <div class="flex justify-between mb-2">
-                  <span class="font-medium text-white text-sm">{{ skill.name }}</span>
-                  <span class="text-gray-400 text-sm">
-                    @if (skill.level < 60) { <span class="text-amber-400 text-xs mr-1">Learning</span> }
-                    {{ skill.level }}%
-                  </span>
-                </div>
-                <div class="w-full bg-gray-700 rounded-full h-2">
-                  <div class="bg-gradient-to-r from-blue-500 to-teal-500 h-2 rounded-full transition-all duration-500"
-                       [style.width.%]="skill.level"></div>
-                </div>
-              </div>
-            }
+      <div class="project-card">
+        <div class="project-img-wrap">
+          <img class="project-img" src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=400&fit=crop" alt="Qulture PWA" />
+        </div>
+        <div class="project-body">
+          <div class="project-title">Qulture PWA</div>
+          <div class="project-desc">Progressive Web App design for the Qulture platform — mobile-first UI with intuitive navigation and polished cross-device interaction patterns.</div>
+          <div class="project-techs">
+            <span class="tech-pill">Figma</span><span class="tech-pill">UI/UX Design</span><span class="tech-pill">PWA</span>
+          </div>
+          <div class="project-links">
+            <a href="https://www.figma.com/design/N0KjAy7IYkcSSlGo51gtbv/Qulture-PWA" target="_blank" class="project-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+              Live Demo
+            </a>
           </div>
         </div>
-      }
-    </div>
-  </div>
-</section>
-
-<!-- Projects Section -->
-<section id="projects" class="py-20 bg-gray-800">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h2 class="text-4xl font-bold text-center mb-4">
-      <span class="bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent">Featured Projects</span>
-    </h2>
-    <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
-      From IoT hardware to mobile apps, dashboards to VS Code extensions — a range of real-world work.
-    </p>
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-      @for (project of projects; track project.title) {
-        <div class="bg-gray-900 border border-gray-700 rounded-xl overflow-hidden hover:border-teal-500 hover:shadow-2xl hover:shadow-teal-500/20 transition-all transform hover:-translate-y-2">
-          <div class="relative">
-            <img [src]="project.image" [alt]="project.title" class="w-full h-48 object-cover">
-            <div class="absolute inset-0 bg-gradient-to-t from-gray-900/60 to-transparent"></div>
-            @if (project.wip) {
-              <span class="absolute top-3 left-3 px-3 py-1 bg-amber-500/90 text-white text-xs font-bold rounded-full backdrop-blur-sm flex items-center gap-1 shadow-lg">
-                <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse inline-block"></span>
-                Work in Progress
-              </span>
-            }
-          </div>
-          <div class="p-6">
-            <h3 class="text-xl font-bold text-white mb-2">{{ project.title }}</h3>
-            <p class="text-gray-400 mb-4 text-sm leading-relaxed">{{ project.description }}</p>
-            <div class="flex flex-wrap gap-2 mb-4">
-              @for (tech of project.technologies; track tech) {
-                <span class="px-3 py-1 bg-gray-800 text-teal-400 rounded-full text-xs border border-gray-700">{{ tech }}</span>
-              }
-            </div>
-            <div class="flex gap-4">
-              @if (project.github) {
-                <a [href]="project.github" target="_blank"
-                   class="flex items-center gap-2 text-gray-400 hover:text-teal-400 transition-colors text-sm">
-                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                  Code
-                </a>
-              }
-              @if (project.demo) {
-                <a [href]="project.demo" target="_blank"
-                   class="flex items-center gap-2 text-gray-400 hover:text-teal-400 transition-colors text-sm">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-                  Live Demo
-                </a>
-              }
-            </div>
-          </div>
-        </div>
-      }
-    </div>
-  </div>
-</section>
-
-<!-- Work Experience Section -->
-<section id="experience" class="py-20 bg-gray-900">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h2 class="text-4xl font-bold text-center mb-12">
-      <span class="bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent">Work Experience</span>
-    </h2>
-
-    <!-- Timeline wrapper -->
-    <div class="relative">
-      <!-- Vertical line -->
-      <div class="hidden md:block absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-blue-500 via-teal-500 to-transparent"></div>
-
-      <div class="space-y-8">
-        @for (exp of workExperience; track $index) {
-          <div class="relative md:pl-16">
-            <!-- Timeline dot -->
-            <div class="hidden md:flex absolute left-0 top-6 w-12 h-12 items-center justify-center rounded-full bg-gray-800 border-2 border-teal-500 shadow-lg shadow-teal-500/20">
-              <svg class="w-5 h-5 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-              </svg>
-            </div>
-
-            <div class="bg-gray-800 border border-gray-700 rounded-xl p-8 hover:border-teal-500 hover:shadow-lg hover:shadow-teal-500/20 transition-all">
-              <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4 gap-2">
-                <div>
-                  <h3 class="text-xl font-bold text-white">{{ exp.role }}</h3>
-                  <p class="text-teal-400 font-semibold">{{ exp.company }}</p>
-                </div>
-                <span class="text-gray-400 text-sm whitespace-nowrap px-3 py-1 bg-gray-900 rounded-full border border-gray-700">{{ exp.period }}</span>
-              </div>
-              <p class="text-gray-300 mb-4 text-sm leading-relaxed">{{ exp.description }}</p>
-              <div class="space-y-2">
-                <p class="font-semibold text-white text-sm">Key Achievements:</p>
-                <ul class="space-y-1">
-                  @for (achievement of exp.achievements; track achievement) {
-                    <li class="flex items-start gap-2 text-gray-300 text-sm">
-                      <svg class="w-4 h-4 text-teal-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                      </svg>
-                      {{ achievement }}
-                    </li>
-                  }
-                </ul>
-              </div>
-            </div>
-          </div>
-        }
       </div>
+
+      <div class="project-card">
+        <div class="project-img-wrap">
+          <img class="project-img" src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop" alt="Athena Code Docs" />
+        </div>
+        <div class="project-body">
+          <div class="project-title">Athena Code Documentation</div>
+          <div class="project-desc">Full-stack web app + VS Code extension for automated code documentation. Angular frontend + Python backend API, published on the VS Code Marketplace.</div>
+          <div class="project-techs">
+            <span class="tech-pill">Angular</span><span class="tech-pill">TypeScript</span><span class="tech-pill">Python</span><span class="tech-pill">VS Code API</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/nooele2/code-doc-web" target="_blank" class="project-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+              Code
+            </a>
+            <a href="https://athena-web-delta.vercel.app" target="_blank" class="project-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+              Live Demo
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-img-wrap">
+          <img class="project-img" src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=400&fit=crop" alt="BudgetBear" />
+        </div>
+        <div class="project-body">
+          <div class="project-title">BudgetBear</div>
+          <div class="project-desc">Personal finance management mobile app built with Flutter. Tracks expenses, manages budgets — features Firebase real-time sync and async data handling.</div>
+          <div class="project-techs">
+            <span class="tech-pill">Flutter</span><span class="tech-pill">Dart</span><span class="tech-pill">Firebase</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/nooele2/BudgetBear" target="_blank" class="project-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+              Code
+            </a>
+            <a href="https://nooele2.github.io/BudgetBear/" target="_blank" class="project-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+              Live Demo
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-img-wrap">
+          <img class="project-img" src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=400&fit=crop" alt="NexStay" />
+        </div>
+        <div class="project-body">
+          <div class="project-title">NexStay Hotel Booking</div>
+          <div class="project-desc">Modern hotel booking app design — seamless reservation flow, property browsing, and user-friendly booking management. Development-ready Figma prototype.</div>
+          <div class="project-techs">
+            <span class="tech-pill">Figma</span><span class="tech-pill">UI/UX Design</span><span class="tech-pill">Mobile</span>
+          </div>
+          <div class="project-links">
+            <a href="https://www.figma.com/proto/5YqoV0dtqujyCR6gJHbmHd/NexStay" target="_blank" class="project-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+              Live Demo
+            </a>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- Volunteer Experience Section -->
-<section id="volunteer" class="py-20 bg-gray-800">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h2 class="text-4xl font-bold text-center mb-4">
-      <span class="bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent">Volunteer Experience</span>
-    </h2>
-    <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
-      Community involvement in social media, media production, and education.
-    </p>
-    <div class="grid md:grid-cols-2 gap-6">
-      @for (vol of volunteerExperience; track $index) {
-        <div class="bg-gray-900 border border-gray-700 rounded-xl p-6 hover:border-teal-500 hover:shadow-lg hover:shadow-teal-500/20 transition-all">
-          <div class="flex flex-col gap-1 mb-3">
-            <div class="flex items-start justify-between gap-2">
-              <h3 class="text-lg font-bold text-white">{{ vol.role }}</h3>
-              <span class="text-gray-500 text-xs whitespace-nowrap mt-1">{{ vol.period }}</span>
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <p class="section-label">Experience</p>
+    <h2 class="section-title">Where I've worked</h2>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-dot active">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <div class="timeline-card">
+          <div class="timeline-header">
+            <div>
+              <div class="timeline-role">Web Developer &amp; IT Support Intern</div>
+              <div class="timeline-company">Chiang Rai International Christian School</div>
             </div>
-            <p class="text-teal-400 font-semibold text-sm">{{ vol.company }}</p>
+            <div class="timeline-period">Jan 2026 – Apr 2026</div>
           </div>
-          <p class="text-gray-300 text-sm mb-3 leading-relaxed">{{ vol.description }}</p>
-          <ul class="space-y-1">
-            @for (achievement of vol.achievements; track achievement) {
-              <li class="flex items-start gap-2 text-gray-400 text-sm">
-                <svg class="w-3.5 h-3.5 text-teal-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                </svg>
-                {{ achievement }}
-              </li>
-            }
+          <div class="timeline-desc">Live production environment — full-stack development, website redesign, network administration, and daily IT support across campus.</div>
+          <ul class="timeline-achievements">
+            <li>Built a React &amp; Python web app to replace Google Sheets for bell schedule management, integrated with Raspberry Pi via REST API</li>
+            <li>Redesigned the school's Wix website — improved layout, structure, and UX for students, parents, and staff</li>
+            <li>Maintained campus network infrastructure including switches, Wi-Fi access points, and LAN</li>
+            <li>Assisted in server management, user account admin, and connectivity troubleshooting</li>
+            <li>Provided daily IT support for Chromebook issues, printing, and library system transition</li>
           </ul>
         </div>
-      }
-    </div>
-  </div>
-</section>
+      </div>
 
-<!-- Contact Section -->
-<section id="contact" class="py-20 bg-gray-900">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h2 class="text-4xl font-bold text-center mb-6">
-      <span class="bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent">Let's Build Something Amazing</span>
-    </h2>
-    <p class="text-xl text-gray-300 text-center mb-16 max-w-3xl mx-auto">
-      I'm open to full-time roles, freelance projects, and remote opportunities. Whether you need a frontend developer,
-      a UI/UX designer, or someone who can work across the full stack — I'd love to hear from you.
-    </p>
-
-    <div class="grid md:grid-cols-2 gap-12 items-start">
-      <!-- Left Side - Contact Info -->
-      <div class="space-y-6">
-        <p class="text-gray-300 text-lg leading-relaxed">
-          My inbox is always open — whether you have a project idea, a question, or just want to say hi.
-          I'm available for full-time roles and freelance work, and I'm remote-ready.
-        </p>
-
-        <div class="space-y-4">
-          <div class="flex items-center gap-4">
-            <div class="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-800">
-              <svg class="w-5 h-5 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-              </svg>
-            </div>
-            <a [href]="'mailto:' + profile.email" class="text-gray-300 hover:text-teal-400 transition-colors">
-              {{ profile.email }}
-            </a>
-          </div>
-
-          <div class="flex items-center gap-4">
-            <div class="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-800">
-              <svg class="w-5 h-5 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-              </svg>
-            </div>
-            <span class="text-gray-300">{{ profile.phone }}</span>
-          </div>
-
-          <div class="flex items-center gap-4">
-            <div class="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-800">
-              <svg class="w-5 h-5 text-teal-400" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-              </svg>
-            </div>
-            <a [href]="'https://wa.me/' + profile.whatsapp" target="_blank" class="text-gray-300 hover:text-teal-400 transition-colors">
-              {{ profile.whatsapp }}
-            </a>
-          </div>
-
-          <div class="flex items-center gap-4">
-            <div class="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-800">
-              <svg class="w-5 h-5 text-teal-400" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
-              </svg>
-            </div>
-            <a [href]="'https://line.me/ti/p/~' + profile.lineId" target="_blank" class="text-gray-300 hover:text-teal-400 transition-colors">
-              {{ profile.lineId }}
-            </a>
-          </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
         </div>
-
-        <!-- Education callout -->
-        <div class="p-4 rounded-xl bg-gray-800 border border-gray-700 mt-6">
-          <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">Education</p>
-          <p class="text-white font-semibold text-sm">B.Eng. Software Engineering</p>
-          <p class="text-teal-400 text-sm">Mae Fah Luang University, Chiang Rai</p>
+        <div class="timeline-card">
+          <div class="timeline-header">
+            <div>
+              <div class="timeline-role">UI/UX Designer — Contract</div>
+              <div class="timeline-company">Vetraeus</div>
+            </div>
+            <div class="timeline-period">Feb 2026 – Mar 2026</div>
+          </div>
+          <div class="timeline-desc">Remote project-based contract delivering design work in a fast-paced, deadline-driven environment.</div>
+          <ul class="timeline-achievements">
+            <li>Delivered Figma wireframes, mockups, and interactive prototypes aligned with product requirements</li>
+            <li>Collaborated async with the engineering team to ensure smooth design-to-development handoff</li>
+          </ul>
         </div>
       </div>
 
-      <!-- Right Side - Contact Form -->
-      <div class="bg-gray-800 border border-gray-700 rounded-2xl p-8">
-        <form (ngSubmit)="sendEmail()" #contactFormRef="ngForm" class="space-y-6">
-          <div>
-            <input
-              type="text"
-              name="name"
-              [(ngModel)]="contactForm.name"
-              placeholder="Name"
-              required
-              [disabled]="isSubmitting"
-              class="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-teal-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            />
+      <div class="timeline-item">
+        <div class="timeline-dot">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div class="timeline-card">
+          <div class="timeline-header">
+            <div>
+              <div class="timeline-role">Customer Service &amp; Assistant Teacher</div>
+              <div class="timeline-company">Teacher Su International School</div>
+            </div>
+            <div class="timeline-period">Dec 2020 – Jul 2023</div>
           </div>
+          <div class="timeline-desc">Three years across two roles — supporting classroom instruction, managing student records, and handling enrollment inquiries.</div>
+          <ul class="timeline-achievements">
+            <li>Managed calls, emails, and inquiries for prospective students and parents</li>
+            <li>Assisted placement tests and enrollment processes end-to-end</li>
+            <li>Graded assignments, kept attendance records, and fostered collaborative learning</li>
+          </ul>
+        </div>
+      </div>
 
-          <div>
-            <input
-              type="email"
-              name="email"
-              [(ngModel)]="contactForm.email"
-              placeholder="Email"
-              required
-              [disabled]="isSubmitting"
-              class="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-teal-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            />
-          </div>
+    </div>
 
-          <div>
-            <textarea
-              rows="5"
-              name="message"
-              [(ngModel)]="contactForm.message"
-              placeholder="Your message..."
-              required
-              [disabled]="isSubmitting"
-              class="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-teal-500 transition-colors resize-none disabled:opacity-50 disabled:cursor-not-allowed"
-            ></textarea>
-          </div>
-
-          <button
-            type="submit"
-            [disabled]="isSubmitting"
-            class="w-full px-8 py-3 bg-gradient-to-r from-blue-500 to-teal-500 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-teal-500/50 transform hover:-translate-y-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-          >
-            <span *ngIf="!isSubmitting">Send Message</span>
-            <span *ngIf="isSubmitting">Sending...</span>
-          </button>
-        </form>
+    <!-- VOLUNTEER -->
+    <div style="margin-top: 4rem;">
+      <p class="section-label">Volunteer</p>
+      <h2 class="section-title" style="font-size:1.8rem;">Giving back</h2>
+      <div class="vol-grid">
+        <div class="vol-card">
+          <div class="vol-header"><div class="vol-role">Social Media Manager</div><div class="vol-period">Sep 2025 – Present</div></div>
+          <div class="vol-company">MFU Myanmar Christian Community</div>
+          <div class="vol-desc">Managing content and online presence for a student-led community at Mae Fah Luang University.</div>
+          <ul class="vol-achievements">
+            <li>Plan and publish content covering faith, fellowship, and events</li>
+            <li>Grew engagement among Myanmar students at the university</li>
+          </ul>
+        </div>
+        <div class="vol-card">
+          <div class="vol-header"><div class="vol-role">Production Team Member</div><div class="vol-period">Aug 2024 – Present</div></div>
+          <div class="vol-company">Newlife Church Chiang Rai</div>
+          <div class="vol-desc">Volunteer media production for weekly services — camera operation and live streaming.</div>
+          <ul class="vol-achievements">
+            <li>Operate cameras and manage live broadcast to online platforms</li>
+            <li>Setup and maintain A/V equipment for services and events</li>
+          </ul>
+        </div>
+        <div class="vol-card">
+          <div class="vol-header"><div class="vol-role">Science &amp; Tech Club Moderator</div><div class="vol-period">Mar 2021 – Jul 2021</div></div>
+          <div class="vol-company">Teacher Su International School</div>
+          <div class="vol-desc">Led weekly club sessions teaching science and technology concepts through hands-on activities.</div>
+          <ul class="vol-achievements">
+            <li>Developed activities to explain complex concepts accessibly</li>
+            <li>Mentored students through projects and experiments</li>
+          </ul>
+        </div>
+        <div class="vol-card">
+          <div class="vol-header"><div class="vol-role">English Club Moderator</div><div class="vol-period">Jun 2020 – Dec 2021</div></div>
+          <div class="vol-company">ELP Saturday Conversation Club</div>
+          <div class="vol-desc">Developed and ran English conversation programs to improve participants' communication skills.</div>
+          <ul class="vol-achievements">
+            <li>Facilitated discussions, debates, and guided sessions</li>
+            <li>Created a welcoming space for consistent language practice</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Footer -->
-<footer class="bg-gray-900 text-white py-10 border-t border-gray-800">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-      <p class="text-gray-400 text-sm">&copy; 2025 {{ profile.name }}. All rights reserved.</p>
-      <div class="flex gap-6 text-sm text-gray-500">
-        <button (click)="scrollToSection('home')" class="hover:text-teal-400 transition-colors">Home</button>
-        <button (click)="scrollToSection('projects')" class="hover:text-teal-400 transition-colors">Projects</button>
-        <button (click)="scrollToSection('experience')" class="hover:text-teal-400 transition-colors">Experience</button>
-        <button (click)="scrollToSection('contact')" class="hover:text-teal-400 transition-colors">Contact</button>
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <p class="section-label">Contact</p>
+    <h2 class="section-title">Let's build something<br /><em>that matters.</em></h2>
+    <p class="section-subtitle">Open to full-time roles, freelance work, and remote opportunities. Whether you have a project or just want to talk — I'd love to hear from you.</p>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <a href="mailto:noellehtoo@gmail.com" class="contact-item">
+          <div class="contact-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></div>
+          <div><div class="contact-label">Email</div><div class="contact-value">noellehtoo@gmail.com</div></div>
+        </a>
+        <a href="tel:+66618842063" class="contact-item">
+          <div class="contact-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg></div>
+          <div><div class="contact-label">Phone</div><div class="contact-value">+66 61 884 2063</div></div>
+        </a>
+        <a href="https://github.com/nooele2" target="_blank" class="contact-item">
+          <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg></div>
+          <div><div class="contact-label">GitHub</div><div class="contact-value">github.com/nooele2</div></div>
+        </a>
+        <a href="https://www.linkedin.com/in/noele2/" target="_blank" class="contact-item">
+          <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></div>
+          <div><div class="contact-label">LinkedIn</div><div class="contact-value">linkedin.com/in/noele2</div></div>
+        </a>
+        <a href="https://wa.me/66618842063" target="_blank" class="contact-item">
+          <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+          <div><div class="contact-label">WhatsApp / Line</div><div class="contact-value">+66618842063 · noele2</div></div>
+        </a>
+      </div>
+      <div>
+        <div class="contact-form">
+          <input class="form-input" type="text" placeholder="Your name" />
+          <input class="form-input" type="email" placeholder="Your email" />
+          <textarea class="form-input" rows="5" placeholder="Your message..."></textarea>
+          <button class="form-submit">Send Message</button>
+        </div>
       </div>
     </div>
   </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2025 Naw Hkoo Ku Htoo &nbsp;·&nbsp; Chiang Rai, Thailand &nbsp;·&nbsp; <a href="https://nawkookukhtoo.vercel.app" style="color:var(--accent);text-decoration:none;">nawkookukhtoo.vercel.app</a></p>
 </footer>
 
-<router-outlet />
+</body>
+</html>
