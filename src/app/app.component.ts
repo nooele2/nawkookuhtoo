@@ -115,21 +115,21 @@ export class AppComponent {
       title: 'Qulture Dashboard',
       description: 'Comprehensive admin dashboard design for the Qulture platform, featuring data visualizations, analytics panels, and a clean layout system built for clarity and efficient workflow.',
       technologies: ['Figma', 'UI/UX Design', 'Dashboard Design'],
-      image: 'public/4.png',
+      image: '4.png',
       demo: 'https://www.figma.com/design/1RfjfjEQaPJrdHzIfbdWbZ/Qulture-Dashboard?node-id=0-1&t=KNvF4EWPRTSs79B1-1'
     },
     {
       title: 'Qulture PWA',
       description: 'A Progressive Web App designed for the Qulture platform, delivering a seamless cross-device experience with mobile-first UI, intuitive navigation, and polished interaction patterns.',
       technologies: ['Figma', 'UI/UX Design', 'PWA Design'],
-      image: 'public/1.png',
+      image: '1.png',
       demo: 'https://www.figma.com/design/N0KjAy7IYkcSSlGo51gtbv/Qulture-PWA?node-id=0-1&t=1UUo7iPzqvFO7Rib-1'
     },
     {
       title: 'Athena Code Documentation Web',
       description: 'Full-stack web app for automated code documentation generation. Angular frontend consuming a Python backend API — demonstrates end-to-end TypeScript development and REST API integration.',
       technologies: ['Angular', 'TypeScript', 'Python', 'REST API'],
-      image: 'public/5.png',
+      image: '5.png',
       github: 'https://github.com/nooele2/code-doc-web',
       demo: 'https://athena-web-delta.vercel.app'
     },
@@ -137,7 +137,7 @@ export class AppComponent {
       title: 'Athena VS Code Extension',
       description: 'VS Code extension published on the Marketplace that automates code documentation generation. Built with Python and Svelte, making it easier for developers to maintain high-quality docs.',
       technologies: ['Python', 'Svelte', 'VS Code API', 'Render'],
-      image: 'public/6.png',
+      image: '6.png',
       github: 'https://github.com/ChannMyae-Zaw/Code-Documetation-VS-Code-Plug-in',
       demo: 'https://marketplace.visualstudio.com/items?itemName=FoodokuAthena.code-documentation'
     },
@@ -145,7 +145,7 @@ export class AppComponent {
       title: 'BudgetBear',
       description: 'Personal finance management mobile app built with Flutter. Tracks expenses, manages budgets, and helps users achieve financial goals — features Firebase real-time sync and async data handling.',
       technologies: ['Flutter', 'Dart', 'Firebase', 'Render'],
-      image: 'public/7.png',
+      image: '7.png',
       github: 'https://github.com/nooele2/BudgetBear',
       demo: 'https://nooele2.github.io/BudgetBear/'
     },
@@ -153,7 +153,7 @@ export class AppComponent {
       title: 'Matcha Notes',
       description: 'Beautiful note-taking mobile app built with Flutter and Firebase. Features real-time cloud sync, clean minimalist UI, and smooth UX — demonstrates NoSQL integration and polished mobile design.',
       technologies: ['Flutter', 'Dart', 'Firebase'],
-      image: 'public/8.png',
+      image: '8.png',
       github: 'https://github.com/nooele2/matcha_notes',
       demo: 'https://nooele2.github.io/matcha_notes/'
     },
@@ -161,7 +161,7 @@ export class AppComponent {
       title: 'NexStay Hotel Booking',
       description: 'Modern hotel booking mobile app design featuring seamless reservation flow, property browsing, and user-friendly booking management. Development-ready Figma prototype.',
       technologies: ['Figma', 'UI/UX Design', 'Mobile Design'],
-      image: 'public/2.png',
+      image: '2.png',
       demo: 'https://www.figma.com/proto/5YqoV0dtqujyCR6gJHbmHd/NexStay?page-id=0%3A1&node-id=1598-387&p=f&viewport=17080%2C-6787%2C0.28&t=Gq9X187jl4sM3gmF-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1598%3A387'
     }
   ];
